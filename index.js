@@ -92,7 +92,17 @@ async function run() {
         const application = req.body;
         const result = await applicationsCollection.insertOne(application)
         res.send(result);
-    })
+    });
+
+    // app.get('/applications/:id', async(req,res) => {
+
+    // })
+    app.get('/applications/job/:job_id', async(req,res) => {
+        const job_id = req.params.job_id;
+        const query = {jobId: job_id}
+        const result = await applicationsCollection.find(query).toArray();
+        res.send(result)
+     })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
